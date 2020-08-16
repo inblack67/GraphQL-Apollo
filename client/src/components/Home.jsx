@@ -1,9 +1,10 @@
 import React from 'react'
+import Launches from './Launches'
 
 const Home = () => {
     return (
-        <div className='bg-gray-900 text-white'>
-            <h1>home</h1>
+        <div>
+            <Launches />
         </div>
     )
 }

@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import BitcoinState from './context/bitcoin/BitcoinState'
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo'
+
 import Home from './components/Home';
-
-
 import './App.css';
-import { useEffect } from 'react';
+
+const client = new ApolloClient({
+  uri: '/graphql'
+})
 
 function App() {
 
   useEffect(() => {
-    document.body.classList.add('bg-red-500');
+    document.body.classList.add('bg-black', 'text-white');
   }, [])
 
   return (
-    <BitcoinState>
+    <ApolloProvider client={client}>
       <div className="">
         <Router>
           <Switch>
@@ -23,7 +26,7 @@ function App() {
           </Switch>
         </Router>
       </div>
-    </BitcoinState>
+    </ApolloProvider>
   );
 }
 
