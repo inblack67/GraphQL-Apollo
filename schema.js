@@ -13,6 +13,7 @@ const LaunchType = new GraphQLObjectType({
     })
 })
 
+// nested rocket object in launch data
 const RocketType = new GraphQLObjectType({
     name: 'Rocket',
     fields: () => ({
@@ -33,8 +34,15 @@ const RootQueryType = new GraphQLObjectType({
             }
         },
         launch: {
-            
-        }
+            type: LaunchType,
+            args: {
+                flight_number: { type: GraphQLInt }
+            },
+            resolve: async (parent, args) => {
+                const res = await axios(`https://api.spacexdata.com/v3/launches/${args.flight_number}`);
+                return res.data;
+            }
+        },
     })
 })
 
